@@ -1,41 +1,43 @@
 // Existing types...
 
-export type AuditAction = 
-  | 'login'
-  | 'logout'
-  | 'create'
-  | 'update'
-  | 'delete'
-  | 'view'
-  | 'download'
-  | 'upload'
-  | 'print'
-  | 'export';
+export type NotificationType = 
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'error';
 
-export type AuditResource =
-  | 'patient'
+export type NotificationCategory =
+  | 'system'
   | 'appointment'
   | 'prescription'
-  | 'document'
-  | 'lab_test'
-  | 'bill'
-  | 'medicine'
-  | 'ward'
-  | 'staff_schedule'
-  | 'system';
+  | 'lab_result'
+  | 'patient'
+  | 'billing'
+  | 'inventory'
+  | 'staff';
 
-export interface AuditLog {
+export interface Notification {
   id: string;
+  title: string;
+  message: string;
+  type: NotificationType;
+  category: NotificationCategory;
   timestamp: string;
+  read: boolean;
   userId: string;
-  userName: string;
-  userRole: Role;
-  action: AuditAction;
-  resource: AuditResource;
-  resourceId?: string;
-  details?: string;
-  ipAddress: string;
-  userAgent: string;
-  status: 'success' | 'failure';
-  errorMessage?: string;
+  actionUrl?: string;
+  metadata?: Record<string, any>;
+}
+
+export interface NotificationPreferences {
+  userId: string;
+  email: boolean;
+  browser: boolean;
+  categories: {
+    [key in NotificationCategory]: {
+      enabled: boolean;
+      email: boolean;
+      browser: boolean;
+    };
+  };
 }
