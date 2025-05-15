@@ -5,3 +5,5 @@ import StaffSchedule from './pages/staff/StaffSchedule';
 // Add these routes within the existing routes array:
 <Route path="appointments/calendar" element={<Calendar />} />
 <Route path="staff/schedule" element={<StaffSchedule />} />
+
+export default StaffSchedule
