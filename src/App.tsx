@@ -11,7 +11,27 @@ import PatientDashboard from './pages/patients/PatientDashboard';
 import Patients from './pages/patients/Patients';
 import PatientDetails from './pages/patients/PatientDetails';
 import AddPatient from './pages/patients/AddPatient';
-// ... rest of the imports
+import Appointments from './pages/appointments/Appointments';
+import AddAppointment from './pages/appointments/AddAppointment';
+import Doctors from './pages/doctors/Doctors';
+import DoctorDetails from './pages/doctors/DoctorDetails';
+import AddDoctor from './pages/doctors/AddDoctor';
+import Prescriptions from './pages/prescriptions/Prescriptions';
+import AddPrescription from './pages/prescriptions/AddPrescription';
+import PrescriptionDetails from './pages/prescriptions/PrescriptionDetails';
+import Billing from './pages/billing/Billing';
+import AddBill from './pages/billing/AddBill';
+import BillDetails from './pages/billing/BillDetails';
+import Pharmacy from './pages/pharmacy/Pharmacy';
+import AddMedicine from './pages/pharmacy/AddMedicine';
+import Laboratory from './pages/laboratory/Laboratory';
+import AddLabTest from './pages/laboratory/AddLabTest';
+import LabTestDetails from './pages/laboratory/LabTestDetails';
+import Wards from './pages/wards/Wards';
+import WardDetails from './pages/wards/WardDetails';
+import Reports from './pages/reports/Reports';
+import UserProfile from './pages/profile/UserProfile';
+import NotFoundPage from './pages/errors/NotFoundPage';
 
 function App() {
   const { isAuthenticated, user } = useAuthStore();
@@ -65,8 +85,88 @@ function App() {
             <Dashboard />
           } />
           
-          {/* Rest of the routes */}
-          {/* ... */}
+          {/* Patient Routes */}
+          <Route path="patients" element={<Patients />} />
+          <Route path="patients/:id" element={<PatientDetails />} />
+          <Route path="patients/add" element={
+            <RoleBasedRoute allowedRoles={['admin', 'receptionist', 'doctor', 'nurse']}>
+              <AddPatient />
+            </RoleBasedRoute>
+          } />
+          
+          {/* Appointment Routes */}
+          <Route path="appointments" element={<Appointments />} />
+          <Route path="appointments/add" element={
+            <RoleBasedRoute allowedRoles={['admin', 'receptionist', 'doctor']}>
+              <AddAppointment />
+            </RoleBasedRoute>
+          } />
+          
+          {/* Doctor Routes */}
+          <Route path="doctors" element={<Doctors />} />
+          <Route path="doctors/:id" element={<DoctorDetails />} />
+          <Route path="doctors/add" element={
+            <RoleBasedRoute allowedRoles={['admin']}>
+              <AddDoctor />
+            </RoleBasedRoute>
+          } />
+          
+          {/* Prescription Routes */}
+          <Route path="prescriptions" element={<Prescriptions />} />
+          <Route path="prescriptions/:id" element={<PrescriptionDetails />} />
+          <Route path="prescriptions/add" element={
+            <RoleBasedRoute allowedRoles={['admin', 'doctor']}>
+              <AddPrescription />
+            </RoleBasedRoute>
+          } />
+          
+          {/* Billing Routes */}
+          <Route path="billing" element={<Billing />} />
+          <Route path="billing/:id" element={<BillDetails />} />
+          <Route path="billing/add" element={
+            <RoleBasedRoute allowedRoles={['admin', 'receptionist']}>
+              <AddBill />
+            </RoleBasedRoute>
+          } />
+          
+          {/* Pharmacy Routes */}
+          <Route path="pharmacy" element={
+            <RoleBasedRoute allowedRoles={['admin', 'pharmacist']}>
+              <Pharmacy />
+            </RoleBasedRoute>
+          } />
+          <Route path="pharmacy/add" element={
+            <RoleBasedRoute allowedRoles={['admin', 'pharmacist']}>
+              <AddMedicine />
+            </RoleBasedRoute>
+          } />
+          
+          {/* Laboratory Routes */}
+          <Route path="laboratory" element={
+            <RoleBasedRoute allowedRoles={['admin', 'lab_technician', 'doctor']}>
+              <Laboratory />
+            </RoleBasedRoute>
+          } />
+          <Route path="laboratory/add" element={
+            <RoleBasedRoute allowedRoles={['admin', 'doctor']}>
+              <AddLabTest />
+            </RoleBasedRoute>
+          } />
+          <Route path="laboratory/:id" element={<LabTestDetails />} />
+          
+          {/* Ward Routes */}
+          <Route path="wards" element={<Wards />} />
+          <Route path="wards/:id" element={<WardDetails />} />
+          
+          {/* Reports Routes */}
+          <Route path="reports" element={
+            <RoleBasedRoute allowedRoles={['admin', 'doctor']}>
+              <Reports />
+            </RoleBasedRoute>
+          } />
+          
+          {/* Profile Route */}
+          <Route path="profile" element={<UserProfile />} />
         </Route>
         
         {/* 404 Route */}
