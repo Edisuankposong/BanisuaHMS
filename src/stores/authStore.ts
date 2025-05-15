@@ -16,21 +16,21 @@ const mockUsers: User[] = [
   {
     id: '1',
     name: 'Admin User',
-    email: 'admin@medcore.com',
+    email: 'admin@banisua.com',
     role: 'admin' as Role,
     profileImage: 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=150'
   },
   {
     id: '2',
     name: 'Dr. Sarah Johnson',
-    email: 'doctor@medcore.com',
+    email: 'doctor@banisua.com',
     role: 'doctor' as Role,
     profileImage: 'https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg?auto=compress&cs=tinysrgb&w=150'
   },
   {
     id: '3',
     name: 'Nurse Smith',
-    email: 'nurse@medcore.com',
+    email: 'nurse@banisua.com',
     role: 'nurse' as Role,
     profileImage: 'https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=150'
   }
