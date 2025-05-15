@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from './stores/authStore';
 import Login from './pages/auth/Login';
 import ForgotPassword from './pages/auth/ForgotPassword';
@@ -9,7 +9,6 @@ import Patients from './pages/patients/Patients';
 import PatientDetails from './pages/patients/PatientDetails';
 import AddPatient from './pages/patients/AddPatient';
 import Appointments from './pages/appointments/Appointments';
-import Calendar from './pages/appointments/Calendar';
 import AddAppointment from './pages/appointments/AddAppointment';
 import Doctors from './pages/doctors/Doctors';
 import DoctorDetails from './pages/doctors/DoctorDetails';
@@ -30,9 +29,8 @@ import WardDetails from './pages/wards/WardDetails';
 import Reports from './pages/reports/Reports';
 import UserProfile from './pages/profile/UserProfile';
 import NotFoundPage from './pages/errors/NotFoundPage';
-import StaffSchedule from './pages/staff/StaffSchedule';
 
-const App = () => {
+function App() {
   const { isAuthenticated, user } = useAuthStore();
 
   const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -90,7 +88,6 @@ const App = () => {
           
           {/* Appointment Routes */}
           <Route path="appointments" element={<Appointments />} />
-          <Route path="appointments/calendar" element={<Calendar />} />
           <Route path="appointments/add" element={
             <RoleBasedRoute allowedRoles={['admin', 'receptionist', 'doctor']}>
               <AddAppointment />
@@ -153,13 +150,6 @@ const App = () => {
           <Route path="wards" element={<Wards />} />
           <Route path="wards/:id" element={<WardDetails />} />
           
-          {/* Staff Routes */}
-          <Route path="staff/schedule" element={
-            <RoleBasedRoute allowedRoles={['admin', 'doctor']}>
-              <StaffSchedule />
-            </RoleBasedRoute>
-          } />
-          
           {/* Reports Routes */}
           <Route path="reports" element={
             <RoleBasedRoute allowedRoles={['admin', 'doctor']}>
@@ -176,6 +166,6 @@ const App = () => {
       </Routes>
     </Router>
   );
-};
+}
 
 export default App;
