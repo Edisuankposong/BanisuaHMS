@@ -16,29 +16,29 @@ const ReceptionistDashboard = () => {
   const appointments = [
     {
       id: '1',
-      patientName: 'John Davis',
+      patientName: 'Effiong Bassey',
       patientId: 'PAT001',
       time: '09:30 AM',
-      doctor: 'Dr. Sarah Johnson',
+      doctor: 'Dr. Okon Bassey',
       type: 'Regular Checkup',
       status: 'checked-in',
       room: '101'
     },
     {
       id: '2',
-      patientName: 'Emma Wilson',
+      patientName: 'Arit Ekpo',
       patientId: 'PAT002',
       time: '10:15 AM',
-      doctor: 'Dr. Michael Brown',
+      doctor: 'Dr. Efiom Edet',
       type: 'Follow-up',
       status: 'scheduled'
     },
     {
       id: '3',
-      patientName: 'Robert Miller',
+      patientName: 'Okon Edet',
       patientId: 'PAT003',
       time: '11:00 AM',
-      doctor: 'Dr. Sarah Johnson',
+      doctor: 'Dr. Otu Essien',
       type: 'Consultation',
       status: 'waiting'
     }
@@ -46,31 +46,49 @@ const ReceptionistDashboard = () => {
 
   // Mock data for room assignments
   const rooms = [
-    { id: '101', doctor: 'Dr. Sarah Johnson', status: 'occupied', patient: 'John Davis' },
-    { id: '102', doctor: 'Dr. Michael Brown', status: 'available' },
-    { id: '103', doctor: 'Dr. Emily White', status: 'cleaning' },
-    { id: '104', doctor: 'Dr. David Clark', status: 'maintenance' }
+    { id: '101', doctor: 'Dr. Okon Bassey', status: 'occupied', patient: 'Effiong Bassey' },
+    { id: '102', doctor: 'Dr. Efiom Edet', status: 'available' },
+    { id: '103', doctor: 'Dr. Otu Essien', status: 'cleaning' },
+    { id: '104', doctor: 'Dr. Asuquo Ekpo', status: 'maintenance' }
   ];
 
   // Mock data for waiting list
   const waitingList = [
     {
       id: '1',
-      patientName: 'Robert Miller',
+      patientName: 'Okon Edet',
       patientId: 'PAT003',
-      doctor: 'Dr. Sarah Johnson',
+      doctor: 'Dr. Otu Essien',
       waitingSince: '10:45 AM',
       priority: 'normal'
     },
     {
       id: '2',
-      patientName: 'Alice Thompson',
+      patientName: 'Ekanem Effiom',
       patientId: 'PAT004',
-      doctor: 'Dr. Michael Brown',
+      doctor: 'Dr. Efiom Edet',
       waitingSince: '10:30 AM',
       priority: 'urgent'
     }
   ];
+
+  const getOccupancyColor = (occupied: number, total: number) => {
+    const percentage = (occupied / total) * 100;
+    if (percentage >= 90) return 'text-danger-600';
+    if (percentage >= 75) return 'text-warning-600';
+    return 'text-success-600';
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'checked-in':
+        return 'bg-success-100 text-success-800';
+      case 'waiting':
+        return 'bg-warning-100 text-warning-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
+  };
 
   const appointmentColumns = [
     {
@@ -97,13 +115,7 @@ const ReceptionistDashboard = () => {
     {
       header: 'Status',
       accessor: (appointment: any) => (
-        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-          appointment.status === 'checked-in'
-            ? 'bg-success-100 text-success-800'
-            : appointment.status === 'waiting'
-            ? 'bg-warning-100 text-warning-800'
-            : 'bg-gray-100 text-gray-800'
-        }`}>
+        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(appointment.status)}`}>
           {appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}
         </span>
       )
