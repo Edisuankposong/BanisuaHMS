@@ -33,6 +33,13 @@ const mockUsers: User[] = [
     email: 'nurse@banisua.com',
     role: 'nurse' as Role,
     profileImage: 'https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=150'
+  },
+  {
+    id: '4',
+    name: 'John Miller',
+    email: 'lab@banisua.com',
+    role: 'lab_technician' as Role,
+    profileImage: 'https://images.pexels.com/photos/8460157/pexels-photo-8460157.jpeg?auto=compress&cs=tinysrgb&w=150'
   }
 ];
 
