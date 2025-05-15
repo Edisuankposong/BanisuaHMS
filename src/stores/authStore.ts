@@ -1,38 +1,28 @@
 import { create } from 'zustand';
 import { User, Role } from '../types';
 
-interface AuthState {
-  isAuthenticated: boolean;
-  user: User | null;
-  token: string | null;
-  login: (email: string, password: string) => Promise<boolean>;
-  logout: () => void;
-  forgotPassword: (email: string) => Promise<boolean>;
-  resetPassword: (token: string, password: string) => Promise<boolean>;
-}
-
 // Mock user data - in a real app this would come from an API
 const mockUsers: User[] = [
   {
     id: '1',
-    name: 'Admin User',
-    email: 'admin@medcore.com',
+    name: 'Dr. Babajide Ogunleye',
+    email: 'admin@banisua.com',
     role: 'admin' as Role,
-    profileImage: 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=150'
+    profileImage: 'https://images.pexels.com/photos/2269872/pexels-photo-2269872.jpeg?auto=compress&cs=tinysrgb&w=150'
   },
   {
     id: '2',
-    name: 'Dr. Sarah Johnson',
-    email: 'doctor@medcore.com',
+    name: 'Dr. Olayinka Adeyemi',
+    email: 'doctor@banisua.com',
     role: 'doctor' as Role,
-    profileImage: 'https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg?auto=compress&cs=tinysrgb&w=150'
+    profileImage: 'https://images.pexels.com/photos/7578803/pexels-photo-7578803.jpeg?auto=compress&cs=tinysrgb&w=150'
   },
   {
     id: '3',
-    name: 'Nurse Smith',
-    email: 'nurse@medcore.com',
+    name: 'Nurse Chidinma Okoro',
+    email: 'nurse@banisua.com',
     role: 'nurse' as Role,
-    profileImage: 'https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=150'
+    profileImage: 'https://images.pexels.com/photos/7580386/pexels-photo-7580386.jpeg?auto=compress&cs=tinysrgb&w=150'
   }
 ];
 
