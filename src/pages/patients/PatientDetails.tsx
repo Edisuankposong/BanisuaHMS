@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { 
   ArrowLeft, Edit, Trash2, FilePlus, CalendarPlus, FileText, HeartPulse,
-  ClipboardList, Phone, Mail, MapPin, Clock, User, UserRound, Droplet
+  ClipboardList, Phone, Mail, MapPin, Clock, User, UserRound, Droplet,
+  Pill, FlaskConical, Syringe, Stethoscope, Activity
 } from 'lucide-react';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import Table from '../../components/ui/Table';
+import Timeline from '../../components/ui/Timeline';
 import { getPatientById } from '../../mocks/patientData';
 import { Patient, MedicalHistory } from '../../types';
 
@@ -34,6 +36,47 @@ const PatientDetails = () => {
 
     loadPatient();
   }, [id]);
+
+  const getTimelineItems = () => {
+    const timelineItems = [];
+
+    // Add medical history items
+    if (patient?.medicalHistory) {
+      timelineItems.push(...patient.medicalHistory.map(history => ({
+        id: history.id,
+        title: history.condition,
+        description: `Treatment: ${history.treatment}${history.notes ? `\nNotes: ${history.notes}` : ''}`,
+        date: formatDate(history.diagnosisDate),
+        icon: <Activity className="w-4 h-4 text-primary-500" />,
+        category: 'Diagnosis'
+      })));
+    }
+
+    // Add appointments
+    timelineItems.push(...appointments.map(appointment => ({
+      id: appointment.id,
+      title: appointment.type,
+      description: `Doctor: ${appointment.doctor}`,
+      date: `${formatDate(appointment.date)} ${appointment.time}`,
+      icon: <Stethoscope className="w-4 h-4 text-secondary-500" />,
+      category: 'Appointment'
+    })));
+
+    // Add prescriptions
+    timelineItems.push(...prescriptions.map(prescription => ({
+      id: prescription.id,
+      title: prescription.diagnosis,
+      description: `Prescribed by ${prescription.doctor}`,
+      date: formatDate(prescription.date),
+      icon: <Pill className="w-4 h-4 text-success-500" />,
+      category: 'Prescription'
+    })));
+
+    // Sort by date
+    return timelineItems.sort((a, b) => 
+      new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+  };
 
   if (isLoading) {
     return (
@@ -584,7 +627,7 @@ const PatientDetails = () => {
       {activeTab === 'medical-history' && (
         <div>
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-medium text-gray-900">Complete Medical History</h3>
+            <h3 className="text-lg font-medium text-gray-900">Medical History Timeline</h3>
             <Button
               variant="outline"
               size="sm"
@@ -594,26 +637,28 @@ const PatientDetails = () => {
               Add Entry
             </Button>
           </div>
-          {patient.medicalHistory && patient.medicalHistory.length > 0 ? (
-            <Table 
-              columns={historyColumns} 
-              data={patient.medicalHistory}
-            />
-          ) : (
-            <div className="text-center py-8 bg-white rounded-lg shadow-sm border border-gray-200">
-              <HeartPulse size={40} className="mx-auto text-gray-400 mb-2" />
-              <h3 className="text-lg font-medium text-gray-900">No Medical History</h3>
-              <p className="text-gray-500 mb-4">No medical history records found for this patient</p>
-              <Button
-                variant="primary"
-                size="sm"
-                leftIcon={<FilePlus size={16} />}
-                onClick={() => navigate('/medical-history/add', { state: { patientId: patient.id } })}
-              >
-                Add Medical History
-              </Button>
+          
+          <Card>
+            <div className="p-6">
+              {getTimelineItems().length > 0 ? (
+                <Timeline items={getTimelineItems()} />
+              ) : (
+                <div className="text-center py-8">
+                  <HeartPulse size={40} className="mx-auto text-gray-400 mb-2" />
+                  <h3 className="text-lg font-medium text-gray-900">No Medical History</h3>
+                  <p className="text-gray-500 mb-4">No medical history records found for this patient</p>
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    leftIcon={<FilePlus size={16} />}
+                    onClick={() => navigate('/medical-history/add', { state: { patientId: patient.id } })}
+                  >
+                    Add Medical History
+                  </Button>
+                </div>
+              )}
             </div>
-          )}
+          </Card>
         </div>
       )}
     </div>
