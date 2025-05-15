@@ -29,6 +29,7 @@ import WardDetails from './pages/wards/WardDetails';
 import Reports from './pages/reports/Reports';
 import UserProfile from './pages/profile/UserProfile';
 import NotFoundPage from './pages/errors/NotFoundPage';
+import StaffScheduling from './pages/staff/StaffScheduling';
 
 function App() {
   const { isAuthenticated, user } = useAuthStore();
@@ -154,6 +155,13 @@ function App() {
           <Route path="reports" element={
             <RoleBasedRoute allowedRoles={['admin', 'doctor']}>
               <Reports />
+            </RoleBasedRoute>
+          } />
+
+          {/* Staff Scheduling Route */}
+          <Route path="staff/scheduling" element={
+            <RoleBasedRoute allowedRoles={['admin', 'hr']}>
+              <StaffScheduling />
             </RoleBasedRoute>
           } />
           
