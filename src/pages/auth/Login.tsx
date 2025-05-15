@@ -119,7 +119,7 @@ const Login = () => {
           
           <div className="text-sm text-center text-gray-600">
             <p>Demo accounts (Password: password)</p>
-            <div className="flex justify-center space-x-3 mt-2">
+            <div className="flex flex-wrap justify-center gap-3 mt-2">
               <button 
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
@@ -151,6 +151,13 @@ const Login = () => {
               <button
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
+                onClick={() => setEmail('pharmacist@banisua.com.ng')}
+              >
+                Pharmacist
+              </button>
+              <button
+                type="button"
+                className="text-primary-600 hover:text-primary-700"
                 onClick={() => setEmail('patient@banisua.com.ng')}
               >
                 Patient
@@ -162,5 +169,3 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;
