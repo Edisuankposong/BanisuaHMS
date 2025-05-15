@@ -3,7 +3,7 @@ import { useAuthStore } from '../../stores/authStore';
 import { 
   X, Home, Users, CalendarClock, Stethoscope, FileText, 
   Receipt, Pill, FlaskConical, Bed, FileBarChart, Calendar as CalendarIcon,
-  Files 
+  Files, Activity 
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -46,6 +46,12 @@ const Sidebar = ({ isOpen, closeSidebar }: SidebarProps) => {
         icon: <Files size={20} />, 
         text: 'Documents', 
         roles: ['admin', 'doctor', 'nurse', 'receptionist'] 
+      },
+      { 
+        to: '/audit-logs', 
+        icon: <Activity size={20} />, 
+        text: 'Audit Logs', 
+        roles: ['admin'] 
       },
     ];
 
