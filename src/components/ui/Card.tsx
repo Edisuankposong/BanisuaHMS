@@ -6,6 +6,7 @@ interface CardProps {
   children: React.ReactNode;
   className?: string;
   footer?: React.ReactNode;
+  noPadding?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({ 
@@ -13,7 +14,8 @@ const Card: React.FC<CardProps> = ({
   subtitle, 
   children, 
   className = '',
-  footer
+  footer,
+  noPadding = false
 }) => {
   return (
     <div className={`bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden ${className}`}>
@@ -23,7 +25,7 @@ const Card: React.FC<CardProps> = ({
           {subtitle && <p className="mt-1 text-sm text-gray-500">{subtitle}</p>}
         </div>
       )}
-      <div className="p-4">
+      <div className={noPadding ? '' : 'p-4'}>
         {children}
       </div>
       {footer && (
@@ -37,4 +39,4 @@ const Card: React.FC<CardProps> = ({
 
 export { Card };
 
-export default Card
+export default Card;

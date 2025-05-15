@@ -4,6 +4,7 @@ interface TableColumn<T> {
   header: string;
   accessor: keyof T | ((row: T) => React.ReactNode);
   className?: string;
+  hideOnMobile?: boolean;
 }
 
 interface TableProps<T> {
@@ -80,7 +81,8 @@ export function Table<T>({
   return (
     <div className="w-full bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
+        {/* Desktop View */}
+        <table className="min-w-full divide-y divide-gray-200 hidden md:table">
           <thead className="bg-gray-50">
             <tr>
               {columns.map((column, index) => (
@@ -112,6 +114,30 @@ export function Table<T>({
             ))}
           </tbody>
         </table>
+
+        {/* Mobile View */}
+        <div className="md:hidden divide-y divide-gray-200">
+          {data.map((row, i) => (
+            <div
+              key={keyExtractor(row, i)}
+              className={`p-4 ${onRowClick ? 'cursor-pointer hover:bg-gray-50' : ''}`}
+              onClick={() => onRowClick && onRowClick(row)}
+            >
+              {columns
+                .filter(column => !column.hideOnMobile)
+                .map((column, j) => (
+                  <div key={j} className="mb-2 last:mb-0">
+                    <div className="text-xs font-medium text-gray-500 uppercase">
+                      {column.header}
+                    </div>
+                    <div className="mt-1">
+                      {renderCell(row, column)}
+                    </div>
+                  </div>
+                ))}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

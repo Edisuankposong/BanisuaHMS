@@ -124,6 +124,10 @@ export default {
           '100%': { transform: 'translateX(0)', opacity: '1' },
         },
       },
+      screens: {
+        'xs': '475px',
+        // Add any custom breakpoints if needed
+      },
     },
   },
   plugins: [],

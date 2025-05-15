@@ -10,6 +10,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isFullWidth?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  mobileFullWidth?: boolean;
 }
 
 export function Button({
@@ -18,6 +19,7 @@ export function Button({
   size = 'md',
   isLoading = false,
   isFullWidth = false,
+  mobileFullWidth = false,
   leftIcon,
   rightIcon,
   className = '',
@@ -48,7 +50,11 @@ export function Button({
     ? 'opacity-60 cursor-not-allowed'
     : 'cursor-pointer';
   
-  const widthStyles = isFullWidth ? 'w-full' : '';
+  const widthStyles = isFullWidth 
+    ? 'w-full' 
+    : mobileFullWidth 
+    ? 'w-full md:w-auto' 
+    : '';
 
   return (
     <button
@@ -93,4 +99,4 @@ export function Button({
   );
 }
 
-export default Button
+export default Button;
