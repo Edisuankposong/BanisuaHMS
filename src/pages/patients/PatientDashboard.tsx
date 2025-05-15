@@ -1,8 +1,5 @@
 import { useState } from 'react';
-import { 
-  FileText, Calendar, Receipt, Flask, Pill, 
-  Clock, AlertTriangle, Download, Eye, Plus 
-} from 'lucide-react';
+import { FileText, Calendar, Receipt, FlaskRound as Flask, Pill, Clock, AlertTriangle, Download, Eye, Plus } from 'lucide-react';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import Table from '../../components/ui/Table';
