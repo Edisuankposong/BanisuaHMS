@@ -4,18 +4,18 @@ import { Patient } from '../types';
 export const patients: Patient[] = [
   {
     id: '1',
-    firstName: 'Oluwaseun',
-    lastName: 'Adebayo',
-    email: 'oluwaseun.adebayo@example.com',
-    phone: '(234) 803-123-4567',
+    firstName: 'John',
+    lastName: 'Davis',
+    email: 'john.davis@example.com',
+    phone: '(555) 123-4567',
     gender: 'male',
     dateOfBirth: '1985-06-15',
     bloodGroup: 'O+',
-    address: '15 Awolowo Road, Ikoyi, Lagos',
+    address: '123 Main St, Anytown, USA',
     emergencyContact: {
-      name: 'Folake Adebayo',
+      name: 'Mary Davis',
       relation: 'Wife',
-      phone: '(234) 805-987-6543'
+      phone: '(555) 987-6543'
     },
     status: 'active',
     registrationDate: '2022-01-15',
@@ -40,18 +40,18 @@ export const patients: Patient[] = [
   },
   {
     id: '2',
-    firstName: 'Chioma',
-    lastName: 'Okonkwo',
-    email: 'chioma.okonkwo@example.com',
-    phone: '(234) 802-234-5678',
+    firstName: 'Emma',
+    lastName: 'Wilson',
+    email: 'emma.wilson@example.com',
+    phone: '(555) 234-5678',
     gender: 'female',
     dateOfBirth: '1990-08-20',
     bloodGroup: 'A+',
-    address: '7 Nnamdi Azikiwe Street, Port Harcourt',
+    address: '456 Elm St, Somewhere, USA',
     emergencyContact: {
-      name: 'Chinedu Okonkwo',
+      name: 'Robert Wilson',
       relation: 'Father',
-      phone: '(234) 806-876-5432'
+      phone: '(555) 876-5432'
     },
     status: 'active',
     registrationDate: '2022-02-28',
@@ -68,18 +68,18 @@ export const patients: Patient[] = [
   },
   {
     id: '3',
-    firstName: 'Ibrahim',
-    lastName: 'Musa',
-    email: 'ibrahim.musa@example.com',
-    phone: '(234) 803-345-6789',
+    firstName: 'Robert',
+    lastName: 'Miller',
+    email: 'robert.miller@example.com',
+    phone: '(555) 345-6789',
     gender: 'male',
     dateOfBirth: '1978-12-05',
     bloodGroup: 'B-',
-    address: '25 Ahmadu Bello Way, Kaduna',
+    address: '789 Oak St, Elsewhere, USA',
     emergencyContact: {
-      name: 'Aisha Musa',
+      name: 'Susan Miller',
       relation: 'Wife',
-      phone: '(234) 805-765-4321'
+      phone: '(555) 765-4321'
     },
     status: 'active',
     registrationDate: '2021-11-10',
@@ -104,18 +104,18 @@ export const patients: Patient[] = [
   },
   {
     id: '4',
-    firstName: 'Adanna',
-    lastName: 'Eze',
-    email: 'adanna.eze@example.com',
-    phone: '(234) 802-456-7890',
+    firstName: 'Sophia',
+    lastName: 'Thompson',
+    email: 'sophia.thompson@example.com',
+    phone: '(555) 456-7890',
     gender: 'female',
     dateOfBirth: '1995-03-25',
     bloodGroup: 'AB+',
-    address: '12 Okpara Avenue, Enugu',
+    address: '101 Pine St, Nowhere, USA',
     emergencyContact: {
-      name: 'Obinna Eze',
+      name: 'Michael Thompson',
       relation: 'Brother',
-      phone: '(234) 803-654-3210'
+      phone: '(555) 654-3210'
     },
     status: 'active',
     registrationDate: '2022-03-15',
@@ -132,18 +132,18 @@ export const patients: Patient[] = [
   },
   {
     id: '5',
-    firstName: 'Yusuf',
-    lastName: 'Abubakar',
-    email: 'yusuf.abubakar@example.com',
-    phone: '(234) 803-567-8901',
+    firstName: 'William',
+    lastName: 'Brown',
+    email: 'william.brown@example.com',
+    phone: '(555) 567-8901',
     gender: 'male',
     dateOfBirth: '1965-09-10',
     bloodGroup: 'O-',
-    address: '8 Ibrahim Taiwo Road, Kano',
+    address: '202 Maple St, Anywhere, USA',
     emergencyContact: {
-      name: 'Amina Abubakar',
+      name: 'Jennifer Brown',
       relation: 'Daughter',
-      phone: '(234) 802-543-2109'
+      phone: '(555) 543-2109'
     },
     status: 'active',
     registrationDate: '2021-08-05',
