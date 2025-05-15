@@ -53,7 +53,7 @@ const Reports = () => {
     yaxis: {
       labels: {
         formatter: function (value) {
-          return '$' + value.toLocaleString();
+          return '₦' + value.toLocaleString();
         },
         style: {
           colors: '#64748b',
@@ -67,7 +67,7 @@ const Reports = () => {
       theme: 'light',
       y: {
         formatter: function (value) {
-          return '$' + value.toLocaleString();
+          return '₦' + value.toLocaleString();
         },
       },
     },
@@ -366,7 +366,7 @@ const Reports = () => {
           </div>
           <div>
             <p className="text-sm font-medium text-gray-600">Total Revenue</p>
-            <p className="text-2xl font-bold text-gray-900">$125,000</p>
+            <p className="text-2xl font-bold text-gray-900">₦125,000</p>
             <p className="text-xs text-success-600">+8.2% from last month</p>
           </div>
         </Card>
