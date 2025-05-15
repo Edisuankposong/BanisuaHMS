@@ -123,37 +123,44 @@ const Login = () => {
               <button 
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('adaobi.okonkwo@banisua.com.ng')}
+                onClick={() => setEmail('admin@banisua.com.ng')}
               >
-                Patient 1
+                Admin
               </button>
               <button
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('oluwaseun.adeleke@banisua.com.ng')}
+                onClick={() => setEmail('doctor@banisua.com.ng')}
               >
-                Patient 2
+                Doctor
               </button>
               <button
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('chioma.eze@banisua.com.ng')}
+                onClick={() => setEmail('nurse@banisua.com.ng')}
               >
-                Patient 3
+                Nurse
               </button>
               <button
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('babajide.ogunleye@banisua.com.ng')}
+                onClick={() => setEmail('lab@banisua.com.ng')}
               >
-                Patient 4
+                Lab Tech
               </button>
               <button
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('aisha.mohammed@banisua.com.ng')}
+                onClick={() => setEmail('pharmacist@banisua.com.ng')}
               >
-                Patient 5
+                Pharmacist
+              </button>
+              <button
+                type="button"
+                className="text-primary-600 hover:text-primary-700"
+                onClick={() => setEmail('receptionist@banisua.com.ng')}
+              >
+                Receptionist
               </button>
             </div>
           </div>

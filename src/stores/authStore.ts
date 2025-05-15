@@ -54,57 +54,6 @@ const mockUsers: User[] = [
     email: 'receptionist@banisua.com.ng',
     role: 'receptionist' as Role,
     profileImage: 'https://images.pexels.com/photos/5998474/pexels-photo-5998474.jpeg?auto=compress&cs=tinysrgb&w=150'
-  },
-  // Nigerian Patient Profiles
-  {
-    id: 'BAN-PT-001',
-    name: 'Adaobi Okonkwo',
-    email: 'adaobi.okonkwo@banisua.com.ng',
-    role: 'patient' as Role,
-    gender: 'female',
-    dateOfBirth: '1996-03-15',
-    phone: '+234 803 456 7890',
-    profileImage: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=150'
-  },
-  {
-    id: 'BAN-PT-002',
-    name: 'Oluwaseun Adeleke',
-    email: 'oluwaseun.adeleke@banisua.com.ng',
-    role: 'patient' as Role,
-    gender: 'male',
-    dateOfBirth: '1988-07-22',
-    phone: '+234 805 123 4567',
-    profileImage: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150'
-  },
-  {
-    id: 'BAN-PT-003',
-    name: 'Chioma Eze',
-    email: 'chioma.eze@banisua.com.ng',
-    role: 'patient' as Role,
-    gender: 'female',
-    dateOfBirth: '1992-11-30',
-    phone: '+234 701 234 5678',
-    profileImage: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150'
-  },
-  {
-    id: 'BAN-PT-004',
-    name: 'Babajide Ogunleye',
-    email: 'babajide.ogunleye@banisua.com.ng',
-    role: 'patient' as Role,
-    gender: 'male',
-    dateOfBirth: '1975-09-05',
-    phone: '+234 802 345 6789',
-    profileImage: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=150'
-  },
-  {
-    id: 'BAN-PT-005',
-    name: 'Aisha Mohammed',
-    email: 'aisha.mohammed@banisua.com.ng',
-    role: 'patient' as Role,
-    gender: 'female',
-    dateOfBirth: '1990-04-18',
-    phone: '+234 809 876 5432',
-    profileImage: 'https://images.pexels.com/photos/1820919/pexels-photo-1820919.jpeg?auto=compress&cs=tinysrgb&w=150'
   }
 ];
 
