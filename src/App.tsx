@@ -30,6 +30,7 @@ import Reports from './pages/reports/Reports';
 import UserProfile from './pages/profile/UserProfile';
 import NotFoundPage from './pages/errors/NotFoundPage';
 import StaffScheduling from './pages/staff/StaffScheduling';
+import Documents from './pages/documents/Documents';
 
 function App() {
   const { isAuthenticated, user } = useAuthStore();
@@ -163,6 +164,13 @@ function App() {
             <RoleBasedRoute allowedRoles={['admin', 'hr']}>
               <StaffScheduling />
             </RoleBasedRoute>
+          } />
+
+          {/* Documents Route */}
+          <Route path="documents" element={
+            <ProtectedRoute>
+              <Documents />
+            </ProtectedRoute>
           } />
           
           {/* Profile Route */}
