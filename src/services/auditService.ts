@@ -1,14 +1,9 @@
+import { supabase } from '../lib/supabase';
 import { AuditLog, AuditAction, AuditResource } from '../types';
 
-// Mock audit logs data
-const auditLogs: AuditLog[] = [];
-
 export const auditService = {
-  // Log an action
-  logAction: async (
-    userId: string,
-    userName: string,
-    userRole: string,
+  // Log an activity
+  logActivity: async (
     action: AuditAction,
     resource: AuditResource,
     resourceId?: string,
@@ -17,131 +12,91 @@ export const auditService = {
     errorMessage?: string
   ): Promise<AuditLog> => {
     try {
-      const log: AuditLog = {
-        id: `LOG${Math.random().toString(36).substr(2, 9)}`,
-        timestamp: new Date().toISOString(),
-        userId,
-        userName,
-        userRole,
-        action,
-        resource,
-        resourceId,
-        details,
-        ipAddress: '127.0.0.1', // In a real app, this would be the actual IP
-        userAgent: navigator.userAgent,
-        status,
-        errorMessage
-      };
+      const { data, error } = await supabase.rpc('log_activity', {
+        p_action: action,
+        p_resource: resource,
+        p_resource_id: resourceId,
+        p_details: details,
+        p_status: status,
+        p_error_message: errorMessage,
+        p_ip_address: window.clientInformation?.platform,
+        p_user_agent: window.navigator.userAgent
+      });
 
-      auditLogs.unshift(log);
-      return log;
+      if (error) throw error;
+      return data;
     } catch (error) {
-      console.error('Error logging action:', error);
+      console.error('Error logging activity:', error);
       throw error;
     }
   },
 
-  // Get audit logs with filtering and pagination
-  getAuditLogs: async (filters?: {
+  // Get activity logs with filtering
+  getActivityLogs: async (filters?: {
+    userId?: string;
     startDate?: string;
     endDate?: string;
-    userId?: string;
     action?: AuditAction;
     resource?: AuditResource;
     status?: 'success' | 'failure';
-    page?: number;
-    limit?: number;
-  }): Promise<{ logs: AuditLog[]; total: number }> => {
+  }): Promise<AuditLog[]> => {
     try {
-      let filteredLogs = [...auditLogs];
+      const { data, error } = await supabase.rpc('get_user_activity', {
+        p_user_id: filters?.userId,
+        p_start_date: filters?.startDate,
+        p_end_date: filters?.endDate,
+        p_action: filters?.action,
+        p_resource: filters?.resource,
+        p_status: filters?.status
+      });
 
-      if (filters) {
-        if (filters.startDate) {
-          filteredLogs = filteredLogs.filter(log => 
-            new Date(log.timestamp) >= new Date(filters.startDate!)
-          );
-        }
-
-        if (filters.endDate) {
-          filteredLogs = filteredLogs.filter(log => 
-            new Date(log.timestamp) <= new Date(filters.endDate!)
-          );
-        }
-
-        if (filters.userId) {
-          filteredLogs = filteredLogs.filter(log => 
-            log.userId === filters.userId
-          );
-        }
-
-        if (filters.action) {
-          filteredLogs = filteredLogs.filter(log => 
-            log.action === filters.action
-          );
-        }
-
-        if (filters.resource) {
-          filteredLogs = filteredLogs.filter(log => 
-            log.resource === filters.resource
-          );
-        }
-
-        if (filters.status) {
-          filteredLogs = filteredLogs.filter(log => 
-            log.status === filters.status
-          );
-        }
-
-        // Pagination
-        if (filters.page !== undefined && filters.limit) {
-          const start = filters.page * filters.limit;
-          filteredLogs = filteredLogs.slice(start, start + filters.limit);
-        }
-      }
-
-      return {
-        logs: filteredLogs,
-        total: auditLogs.length
-      };
+      if (error) throw error;
+      return data;
     } catch (error) {
-      console.error('Error fetching audit logs:', error);
+      console.error('Error fetching activity logs:', error);
       throw error;
     }
   },
 
   // Export audit logs
-  exportAuditLogs: async (format: 'csv' | 'pdf' = 'csv'): Promise<string> => {
+  exportLogs: async (format: 'csv' | 'pdf' = 'csv'): Promise<Blob> => {
     try {
+      const { data: logs } = await supabase
+        .from('audit_logs')
+        .select('*')
+        .order('created_at', { ascending: false });
+
       if (format === 'csv') {
         const headers = [
-          'Timestamp',
+          'Date',
           'User',
           'Role',
           'Action',
           'Resource',
-          'Resource ID',
           'Details',
-          'Status'
+          'Status',
+          'IP Address'
         ].join(',');
 
-        const rows = auditLogs.map(log => [
-          log.timestamp,
-          log.userName,
-          log.userRole,
+        const rows = logs?.map(log => [
+          new Date(log.created_at).toISOString(),
+          log.user_id,
+          log.user_role,
           log.action,
           log.resource,
-          log.resourceId || '',
-          log.details || '',
-          log.status
+          `"${log.details || ''}"`,
+          log.status,
+          log.ip_address
         ].join(','));
 
-        return [headers, ...rows].join('\n');
+        const csv = [headers, ...(rows || [])].join('\n');
+        return new Blob([csv], { type: 'text/csv' });
       } else {
-        // PDF export would be implemented here
+        // TODO: Implement PDF export
         throw new Error('PDF export not implemented');
       }
     } catch (error) {
-      console.error('Error exporting audit logs:', error);
+      console.error('Error exporting logs:', error);
       throw error;
     }
   }
