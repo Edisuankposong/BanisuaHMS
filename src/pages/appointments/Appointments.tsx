@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Calendar, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Plus, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Calendar as BigCalendar, dateFnsLocalizer } from 'react-big-calendar';
 import format from 'date-fns/format';
