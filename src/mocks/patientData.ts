@@ -1,5 +1,3 @@
-import { Patient } from '../types';
-
 // Mock patient data
 export const patients: Patient[] = [
   {
@@ -11,7 +9,7 @@ export const patients: Patient[] = [
     gender: 'male',
     dateOfBirth: '1985-06-15',
     bloodGroup: 'O+',
-    address: '15 Ademola Adetokunbo Street, Victoria Island, Lagos',
+    address: '15 Marian Road, State Housing Estate, Calabar',
     emergencyContact: {
       name: 'Adanna Okafor',
       relation: 'Wife',
@@ -47,7 +45,7 @@ export const patients: Patient[] = [
     gender: 'female',
     dateOfBirth: '1990-08-20',
     bloodGroup: 'A+',
-    address: '7B Adeola Odeku Street, Ikeja GRA, Lagos',
+    address: '42 MCC Road, Calabar Municipal, Calabar',
     emergencyContact: {
       name: 'Ibrahim Musa',
       relation: 'Father',
@@ -75,7 +73,7 @@ export const patients: Patient[] = [
     gender: 'male',
     dateOfBirth: '1978-12-05',
     bloodGroup: 'B-',
-    address: '24 Bourdillon Road, Ikoyi, Lagos',
+    address: '78 Ndidem Usang Iso Road, Calabar South, Calabar',
     emergencyContact: {
       name: 'Folake Adebayo',
       relation: 'Wife',
@@ -111,7 +109,7 @@ export const patients: Patient[] = [
     gender: 'female',
     dateOfBirth: '1995-03-25',
     bloodGroup: 'AB+',
-    address: '5 Glover Road, Ikoyi, Lagos',
+    address: '25 Ekpo Archibong Street, Big Qua Town, Calabar',
     emergencyContact: {
       name: 'Chinedu Uche',
       relation: 'Brother',
@@ -139,7 +137,7 @@ export const patients: Patient[] = [
     gender: 'male',
     dateOfBirth: '1965-09-10',
     bloodGroup: 'O-',
-    address: '12 Admiralty Way, Lekki Phase 1, Lagos',
+    address: '56 Calabar Road, Diamond Hill, Calabar',
     emergencyContact: {
       name: 'Yewande Ogunleye',
       relation: 'Daughter',
