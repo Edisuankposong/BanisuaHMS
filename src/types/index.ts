@@ -189,3 +189,20 @@ export interface TimeOffRequest {
   status: 'pending' | 'approved' | 'rejected';
   notes?: string;
 }
+
+export interface Document {
+  id: string;
+  title: string;
+  description?: string;
+  category: 'medical' | 'administrative' | 'financial' | 'legal' | 'other';
+  fileUrl: string;
+  fileName: string;
+  fileType: string;
+  fileSize: number;
+  uploadedBy: string;
+  uploadedAt: string;
+  lastModified?: string;
+  accessLevel: 'public' | 'private' | 'restricted';
+  allowedRoles?: Role[];
+  tags?: string[];
+}
