@@ -42,7 +42,7 @@ const Login = () => {
               <path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/>
             </svg>
           </div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">MedCore HMS</h2>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Banisua HMS</h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Sign in to your account
           </p>
@@ -123,21 +123,21 @@ const Login = () => {
               <button 
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('admin@medcore.com')}
+                onClick={() => setEmail('admin@banisua.com')}
               >
                 Admin
               </button>
               <button
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('doctor@medcore.com')}
+                onClick={() => setEmail('doctor@banisua.com')}
               >
                 Doctor
               </button>
               <button
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('nurse@medcore.com')}
+                onClick={() => setEmail('nurse@banisua.com')}
               >
                 Nurse
               </button>
