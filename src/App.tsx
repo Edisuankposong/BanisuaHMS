@@ -7,6 +7,7 @@ import DashboardLayout from './components/layouts/DashboardLayout';
 import Dashboard from './pages/dashboard/Dashboard';
 import Patients from './pages/patients/Patients';
 import PatientDetails from './pages/patients/PatientDetails';
+import PatientDashboard from './pages/patients/PatientDashboard';
 import AddPatient from './pages/patients/AddPatient';
 import Appointments from './pages/appointments/Appointments';
 import AddAppointment from './pages/appointments/AddAppointment';
@@ -78,7 +79,9 @@ function App() {
           </ProtectedRoute>
         }>
           <Route index element={<Navigate to="/dashboard" replace />} />
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard" element={
+            user?.role === 'patient' ? <PatientDashboard /> : <Dashboard />
+          } />
           
           {/* Patient Routes */}
           <Route path="patients" element={<Patients />} />
