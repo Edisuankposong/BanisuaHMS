@@ -7,7 +7,6 @@ import DashboardLayout from './components/layouts/DashboardLayout';
 import Dashboard from './pages/dashboard/Dashboard';
 import PharmacistDashboard from './pages/pharmacy/PharmacistDashboard';
 import ReceptionistDashboard from './pages/receptionist/ReceptionistDashboard';
-import PatientDashboard from './pages/patients/PatientDashboard';
 import Patients from './pages/patients/Patients';
 import PatientDetails from './pages/patients/PatientDetails';
 import AddPatient from './pages/patients/AddPatient';
@@ -82,7 +81,6 @@ function App() {
         }>
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={
-            user?.role === 'patient' ? <PatientDashboard /> :
             user?.role === 'pharmacist' ? <PharmacistDashboard /> :
             user?.role === 'receptionist' ? <ReceptionistDashboard /> :
             <Dashboard />
@@ -100,7 +98,7 @@ function App() {
           {/* Appointment Routes */}
           <Route path="appointments" element={<Appointments />} />
           <Route path="appointments/add" element={
-            <RoleBasedRoute allowedRoles={['admin', 'receptionist', 'doctor', 'patient']}>
+            <RoleBasedRoute allowedRoles={['admin', 'receptionist', 'doctor']}>
               <AddAppointment />
             </RoleBasedRoute>
           } />

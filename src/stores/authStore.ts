@@ -54,13 +54,6 @@ const mockUsers: User[] = [
     email: 'receptionist@banisua.com.ng',
     role: 'receptionist' as Role,
     profileImage: 'https://images.pexels.com/photos/5998474/pexels-photo-5998474.jpeg?auto=compress&cs=tinysrgb&w=150'
-  },
-  {
-    id: '7',
-    name: 'John Davis',
-    email: 'patient@banisua.com.ng',
-    role: 'patient' as Role,
-    profileImage: 'https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=150'
   }
 ];
 
@@ -71,9 +64,11 @@ export const useAuthStore = create<AuthState>((set) => ({
   
   login: async (email: string, password: string) => {
     try {
+      // In a real app, this would be an API call
       const user = mockUsers.find(u => u.email === email);
       
       if (user && password === 'password') {
+        // Simulating token generation
         const token = `token_${Math.random().toString(36).substr(2, 9)}`;
         
         set({ 
@@ -82,6 +77,7 @@ export const useAuthStore = create<AuthState>((set) => ({
           token 
         });
         
+        // Store in localStorage for persistence
         localStorage.setItem('auth', JSON.stringify({ user, token }));
         
         return true;
@@ -105,6 +101,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   
   forgotPassword: async (email: string) => {
     try {
+      // In a real app, this would send a password reset email
       const user = mockUsers.find(u => u.email === email);
       return !!user;
     } catch (error) {
@@ -115,6 +112,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   
   resetPassword: async (token: string, password: string) => {
     try {
+      // In a real app, this would verify the token and reset the password
       return true;
     } catch (error) {
       console.error('Reset password error:', error);
