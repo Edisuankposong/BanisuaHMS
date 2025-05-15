@@ -1,43 +1,77 @@
 // Existing types...
 
-export type NotificationType = 
-  | 'info'
-  | 'success'
-  | 'warning'
-  | 'error';
+export type AuditAction = 
+  | 'create'
+  | 'update'
+  | 'delete'
+  | 'view'
+  | 'login'
+  | 'logout'
+  | 'download'
+  | 'upload'
+  | 'print'
+  | 'export'
+  | 'import';
 
-export type NotificationCategory =
-  | 'system'
+export type AuditResource =
+  | 'patient'
   | 'appointment'
   | 'prescription'
-  | 'lab_result'
-  | 'patient'
-  | 'billing'
-  | 'inventory'
-  | 'staff';
+  | 'document'
+  | 'lab_test'
+  | 'medicine'
+  | 'bill'
+  | 'user'
+  | 'system';
 
-export interface Notification {
+export interface AuditLog {
   id: string;
-  title: string;
-  message: string;
-  type: NotificationType;
-  category: NotificationCategory;
   timestamp: string;
-  read: boolean;
   userId: string;
-  actionUrl?: string;
-  metadata?: Record<string, any>;
+  userName: string;
+  userRole: string;
+  action: AuditAction;
+  resource: AuditResource;
+  resourceId?: string;
+  details?: string;
+  ipAddress: string;
+  userAgent: string;
+  status: 'success' | 'failure';
+  errorMessage?: string;
 }
 
-export interface NotificationPreferences {
+export interface Document {
+  id: string;
+  title: string;
+  description?: string;
+  category: string;
+  fileUrl: string;
+  fileName: string;
+  fileType: string;
+  fileSize: number;
+  uploadedBy: string;
+  uploadedAt: string;
+  accessLevel: 'public' | 'private' | 'restricted';
+  allowedRoles?: string[];
+  tags?: string[];
+}
+
+export interface StaffSchedule {
+  id: string;
   userId: string;
-  email: boolean;
-  browser: boolean;
-  categories: {
-    [key in NotificationCategory]: {
-      enabled: boolean;
-      email: boolean;
-      browser: boolean;
-    };
-  };
+  shiftStart: string;
+  shiftEnd: string;
+  date: string;
+  status: 'scheduled' | 'completed' | 'cancelled';
+  type: 'regular' | 'overtime' | 'on-call';
+}
+
+export interface TimeOffRequest {
+  id: string;
+  userId: string;
+  startDate: string;
+  endDate: string;
+  type: 'vacation' | 'sick' | 'personal' | 'other';
+  status: 'pending' | 'approved' | 'rejected';
+  notes?: string;
 }
