@@ -7,7 +7,6 @@ import DashboardLayout from './components/layouts/DashboardLayout';
 import Dashboard from './pages/dashboard/Dashboard';
 import PharmacistDashboard from './pages/pharmacy/PharmacistDashboard';
 import ReceptionistDashboard from './pages/receptionist/ReceptionistDashboard';
-import PatientDashboard from './pages/patients/PatientDashboard';
 import Patients from './pages/patients/Patients';
 import PatientDetails from './pages/patients/PatientDetails';
 import AddPatient from './pages/patients/AddPatient';
@@ -30,6 +29,9 @@ import LabTestDetails from './pages/laboratory/LabTestDetails';
 import Wards from './pages/wards/Wards';
 import WardDetails from './pages/wards/WardDetails';
 import Reports from './pages/reports/Reports';
+import StaffScheduling from './pages/staff/StaffScheduling';
+import Documents from './pages/documents/Documents';
+import AuditLogs from './pages/admin/AuditLogs';
 import UserProfile from './pages/profile/UserProfile';
 import NotFoundPage from './pages/errors/NotFoundPage';
 
@@ -81,7 +83,6 @@ function App() {
           <Route path="dashboard" element={
             user?.role === 'pharmacist' ? <PharmacistDashboard /> :
             user?.role === 'receptionist' ? <ReceptionistDashboard /> :
-            user?.role === 'patient' ? <PatientDashboard /> :
             <Dashboard />
           } />
           
@@ -162,6 +163,27 @@ function App() {
           <Route path="reports" element={
             <RoleBasedRoute allowedRoles={['admin', 'doctor']}>
               <Reports />
+            </RoleBasedRoute>
+          } />
+
+          {/* Staff Scheduling */}
+          <Route path="staff/scheduling" element={
+            <RoleBasedRoute allowedRoles={['admin', 'hr']}>
+              <StaffScheduling />
+            </RoleBasedRoute>
+          } />
+
+          {/* Documents */}
+          <Route path="documents" element={
+            <RoleBasedRoute allowedRoles={['admin', 'doctor', 'nurse', 'receptionist']}>
+              <Documents />
+            </RoleBasedRoute>
+          } />
+
+          {/* Audit Logs */}
+          <Route path="audit-logs" element={
+            <RoleBasedRoute allowedRoles={['admin']}>
+              <AuditLogs />
             </RoleBasedRoute>
           } />
           
