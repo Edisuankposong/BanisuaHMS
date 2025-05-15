@@ -31,6 +31,7 @@ import UserProfile from './pages/profile/UserProfile';
 import NotFoundPage from './pages/errors/NotFoundPage';
 import StaffScheduling from './pages/staff/StaffScheduling';
 import Documents from './pages/documents/Documents';
+import AuditLogs from './pages/admin/AuditLogs';
 
 function App() {
   const { isAuthenticated, user } = useAuthStore();
@@ -171,6 +172,13 @@ function App() {
             <ProtectedRoute>
               <Documents />
             </ProtectedRoute>
+          } />
+
+          {/* Audit Logs Route */}
+          <Route path="audit-logs" element={
+            <RoleBasedRoute allowedRoles={['admin']}>
+              <AuditLogs />
+            </RoleBasedRoute>
           } />
           
           {/* Profile Route */}
