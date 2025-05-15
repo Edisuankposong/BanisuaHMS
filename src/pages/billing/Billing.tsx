@@ -25,3 +25,5 @@ const stats = [
     icon: <AlertTriangle className="h-6 w-6 text-danger-600" />,
   }
 ];
+
+export default stats
