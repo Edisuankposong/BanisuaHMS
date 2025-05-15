@@ -162,6 +162,13 @@ const Login = () => {
               >
                 Receptionist
               </button>
+              <button
+                type="button"
+                className="text-primary-600 hover:text-primary-700"
+                onClick={() => setEmail('patient@banisua.com.ng')}
+              >
+                Patient
+              </button>
             </div>
           </div>
         </form>
