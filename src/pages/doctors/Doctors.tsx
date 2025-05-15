@@ -72,6 +72,19 @@ const Doctors = () => {
     }
   };
 
+  const getDoctorImage = (id: string) => {
+    switch (id) {
+      case '1':
+        return '5452201';
+      case '2':
+        return '5407206';
+      case '3':
+        return '5452293';
+      default:
+        return '5452201';
+    }
+  };
+
   const columns = [
     {
       header: 'Doctor',
@@ -79,8 +92,8 @@ const Doctors = () => {
         <div className="flex items-center">
           <div className="flex-shrink-0 h-10 w-10">
             <img
-              className="h-10 w-10 rounded-full"
-              src={`https://images.pexels.com/photos/${doctor.id === '1' ? '5452201' : doctor.id === '2' ? '5407206' : '5407213'}/pexels-photo-${doctor.id === '1' ? '5452201' : doctor.id === '2' ? '5407206' : '5407213'}.jpeg?auto=compress&cs=tinysrgb&w=150`}
+              className="h-10 w-10 rounded-full object-cover"
+              src={`https://images.pexels.com/photos/${getDoctorImage(doctor.id)}/pexels-photo-${getDoctorImage(doctor.id)}.jpeg?auto=compress&cs=tinysrgb&w=150`}
               alt={doctor.name}
             />
           </div>
