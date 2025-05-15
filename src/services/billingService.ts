@@ -1,80 +1,105 @@
-import { Bill, BillItem } from '../types';
-
-// Mock bills data
-const bills: Bill[] = [];
+import { Bill, BillItem, InsuranceDetails } from '../types';
+import { supabase } from '../lib/supabase';
 
 export const billingService = {
-  // Get all bills
-  getBills: async (filters?: Record<string, any>): Promise<Bill[]> => {
+  // Create a new bill
+  createBill: async (billData: Omit<Bill, 'id' | 'createdAt' | 'updatedAt'>) => {
     try {
-      let filteredBills = [...bills];
+      const { data, error } = await supabase
+        .from('bills')
+        .insert([{
+          ...billData,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        }])
+        .select()
+        .single();
 
-      if (filters) {
-        Object.entries(filters).forEach(([key, value]) => {
-          if (value) {
-            filteredBills = filteredBills.filter(bill => 
-              bill[key as keyof Bill] === value
-            );
-          }
-        });
-      }
-
-      return filteredBills;
-    } catch (error) {
-      console.error('Error fetching bills:', error);
-      throw error;
-    }
-  },
-
-  // Get bill by ID
-  getBillById: async (id: string): Promise<Bill | null> => {
-    try {
-      const bill = bills.find(b => b.id === id);
-      return bill || null;
-    } catch (error) {
-      console.error('Error fetching bill:', error);
-      throw error;
-    }
-  },
-
-  // Create new bill
-  createBill: async (billData: Omit<Bill, 'id' | 'subtotal' | 'total'>): Promise<Bill> => {
-    try {
-      const subtotal = billData.items.reduce((acc, item) => acc + item.total, 0);
-      const tax = subtotal * 0.1; // 10% tax
-      const total = subtotal + tax - (billData.discount || 0);
-
-      const newBill: Bill = {
-        id: `BILL${Math.random().toString(36).substr(2, 9)}`,
-        ...billData,
-        subtotal,
-        tax,
-        total,
-        status: 'pending',
-        date: new Date().toISOString()
-      };
-
-      bills.push(newBill);
-      return newBill;
+      if (error) throw error;
+      return data;
     } catch (error) {
       console.error('Error creating bill:', error);
       throw error;
     }
   },
 
-  // Update bill
-  updateBill: async (id: string, billData: Partial<Bill>): Promise<Bill> => {
+  // Get bill by ID
+  getBillById: async (id: string) => {
     try {
-      const index = bills.findIndex(b => b.id === id);
-      if (index === -1) throw new Error('Bill not found');
+      const { data, error } = await supabase
+        .from('bills')
+        .select('*, items(*)')
+        .eq('id', id)
+        .single();
 
-      const updatedBill = {
-        ...bills[index],
-        ...billData
-      };
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      console.error('Error fetching bill:', error);
+      throw error;
+    }
+  },
 
-      bills[index] = updatedBill;
-      return updatedBill;
+  // Get bills with filters
+  getBills: async (filters?: {
+    patientId?: string;
+    status?: string;
+    startDate?: string;
+    endDate?: string;
+    page?: number;
+    limit?: number;
+  }) => {
+    try {
+      let query = supabase
+        .from('bills')
+        .select('*, items(*)', { count: 'exact' });
+
+      if (filters?.patientId) {
+        query = query.eq('patientId', filters.patientId);
+      }
+
+      if (filters?.status) {
+        query = query.eq('status', filters.status);
+      }
+
+      if (filters?.startDate) {
+        query = query.gte('date', filters.startDate);
+      }
+
+      if (filters?.endDate) {
+        query = query.lte('date', filters.endDate);
+      }
+
+      if (filters?.page !== undefined && filters?.limit) {
+        const from = filters.page * filters.limit;
+        query = query.range(from, from + filters.limit - 1);
+      }
+
+      const { data, error, count } = await query;
+
+      if (error) throw error;
+      return { data, count };
+    } catch (error) {
+      console.error('Error fetching bills:', error);
+      throw error;
+    }
+  },
+
+  // Update bill
+  updateBill: async (id: string, billData: Partial<Bill>) => {
+    try {
+      const { data, error } = await supabase
+        .from('bills')
+        .update({
+          ...billData,
+          updatedAt: new Date().toISOString()
+        })
+        .eq('id', id)
+        .select()
+        .single();
+
+      if (error) throw error;
+      return data;
     } catch (error) {
       console.error('Error updating bill:', error);
       throw error;
@@ -82,21 +107,75 @@ export const billingService = {
   },
 
   // Process payment
-  processPayment: async (id: string, paymentMethod: Bill['paymentMethod']): Promise<Bill> => {
+  processPayment: async (
+    billId: string,
+    paymentData: {
+      method: Bill['paymentMethod'];
+      amount: number;
+      reference?: string;
+      insuranceDetails?: InsuranceDetails;
+    }
+  ) => {
     try {
-      const index = bills.findIndex(b => b.id === id);
-      if (index === -1) throw new Error('Bill not found');
+      const { data: bill, error: billError } = await supabase
+        .from('bills')
+        .select()
+        .eq('id', billId)
+        .single();
 
-      const updatedBill = {
-        ...bills[index],
-        status: 'paid',
-        paymentMethod
-      };
+      if (billError) throw billError;
 
-      bills[index] = updatedBill;
-      return updatedBill;
+      // Verify payment amount matches bill total
+      if (paymentData.amount !== bill.total) {
+        throw new Error('Payment amount does not match bill total');
+      }
+
+      const { data, error } = await supabase
+        .from('bills')
+        .update({
+          status: 'paid',
+          paymentMethod: paymentData.method,
+          paymentDate: new Date().toISOString(),
+          paymentReference: paymentData.reference,
+          insuranceDetails: paymentData.insuranceDetails,
+          updatedAt: new Date().toISOString()
+        })
+        .eq('id', billId)
+        .select()
+        .single();
+
+      if (error) throw error;
+      return data;
     } catch (error) {
       console.error('Error processing payment:', error);
+      throw error;
+    }
+  },
+
+  // Generate bill PDF
+  generatePDF: async (billId: string) => {
+    try {
+      const bill = await billingService.getBillById(billId);
+      // TODO: Implement PDF generation using jsPDF
+      return null;
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      throw error;
+    }
+  },
+
+  // Export bills to Excel
+  exportToExcel: async (filters?: {
+    startDate?: string;
+    endDate?: string;
+    status?: string;
+  }) => {
+    try {
+      const { data: bills } = await billingService.getBills(filters);
+      // TODO: Implement Excel export using xlsx
+      return null;
+    } catch (error) {
+      console.error('Error exporting to Excel:', error);
       throw error;
     }
   }

@@ -1,77 +1,67 @@
-// Existing types...
+// Add these types to the existing types/index.ts file
 
-export type AuditAction = 
-  | 'create'
-  | 'update'
-  | 'delete'
-  | 'view'
-  | 'login'
-  | 'logout'
-  | 'download'
-  | 'upload'
-  | 'print'
-  | 'export'
-  | 'import';
-
-export type AuditResource =
-  | 'patient'
-  | 'appointment'
-  | 'prescription'
-  | 'document'
-  | 'lab_test'
-  | 'medicine'
-  | 'bill'
-  | 'user'
-  | 'system';
-
-export interface AuditLog {
+export interface BillItem {
   id: string;
-  timestamp: string;
-  userId: string;
-  userName: string;
-  userRole: string;
-  action: AuditAction;
-  resource: AuditResource;
-  resourceId?: string;
-  details?: string;
-  ipAddress: string;
-  userAgent: string;
-  status: 'success' | 'failure';
-  errorMessage?: string;
-}
-
-export interface Document {
-  id: string;
-  title: string;
-  description?: string;
+  description: string;
+  quantity: number;
+  unitPrice: number;
+  total: number;
   category: string;
-  fileUrl: string;
-  fileName: string;
-  fileType: string;
-  fileSize: number;
-  uploadedBy: string;
-  uploadedAt: string;
-  accessLevel: 'public' | 'private' | 'restricted';
-  allowedRoles?: string[];
-  tags?: string[];
+  taxable: boolean;
 }
 
-export interface StaffSchedule {
+export interface InsuranceDetails {
+  provider: string;
+  policyNumber: string;
+  coveragePercentage: number;
+  preAuthorizationNumber?: string;
+  expiryDate: string;
+}
+
+export interface Bill {
   id: string;
-  userId: string;
-  shiftStart: string;
-  shiftEnd: string;
+  patientId: string;
+  patientName: string;
   date: string;
-  status: 'scheduled' | 'completed' | 'cancelled';
-  type: 'regular' | 'overtime' | 'on-call';
+  dueDate: string;
+  items: BillItem[];
+  subtotal: number;
+  tax: number;
+  discount: number;
+  insuranceCoverage: number;
+  total: number;
+  status: 'draft' | 'pending' | 'paid' | 'overdue' | 'cancelled';
+  paymentMethod?: 'cash' | 'card' | 'insurance' | 'bank_transfer';
+  paymentDate?: string;
+  paymentReference?: string;
+  insuranceDetails?: InsuranceDetails;
+  notes?: string;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export interface TimeOffRequest {
+export interface ServiceCategory {
   id: string;
-  userId: string;
-  startDate: string;
-  endDate: string;
-  type: 'vacation' | 'sick' | 'personal' | 'other';
-  status: 'pending' | 'approved' | 'rejected';
-  notes?: string;
+  name: string;
+  description?: string;
+  services: Service[];
+}
+
+export interface Service {
+  id: string;
+  name: string;
+  description?: string;
+  basePrice: number;
+  category: string;
+  taxable: boolean;
+}
+
+export interface PaymentMethod {
+  id: string;
+  name: string;
+  type: 'cash' | 'card' | 'insurance' | 'bank_transfer';
+  enabled: boolean;
+  processingFee?: number;
+  instructions?: string;
 }
