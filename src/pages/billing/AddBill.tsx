@@ -89,7 +89,7 @@ const AddBill = () => {
   };
 
   const calculateTax = () => {
-    return calculateSubtotal() * 0.1; // 10% tax
+    return calculateSubtotal() * 0.075; // 7.5% tax
   };
 
   const calculateInsuranceCoverage = () => {
@@ -198,7 +198,7 @@ const AddBill = () => {
                       </label>
                       <div className="relative">
                         <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
-                          $
+                          ₦
                         </span>
                         <input
                           type="number"
@@ -213,7 +213,7 @@ const AddBill = () => {
                     </div>
                   </div>
                   <div className="flex items-center pt-8">
-                    <span className="px-4 font-medium">${item.total.toFixed(2)}</span>
+                    <span className="px-4 font-medium">₦{item.total.toFixed(2)}</span>
                     <button
                       type="button"
                       onClick={() => removeItem(item.id)}
@@ -261,7 +261,7 @@ const AddBill = () => {
                         className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg"
                       >
                         {service.name}
-                        {service.price > 0 && <span className="float-right">${service.price}</span>}
+                        {service.price > 0 && <span className="float-right">₦{service.price}</span>}
                       </button>
                     ))}
                   </div>
@@ -298,7 +298,7 @@ const AddBill = () => {
                 </label>
                 <div className="relative">
                   <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
-                    $
+                    ₦
                   </span>
                   <input
                     type="number"
@@ -360,27 +360,27 @@ const AddBill = () => {
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600">Subtotal</span>
-                  <span className="font-medium">${calculateSubtotal().toFixed(2)}</span>
+                  <span className="font-medium">₦{calculateSubtotal().toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Tax (10%)</span>
-                  <span className="font-medium">${calculateTax().toFixed(2)}</span>
+                  <span className="text-gray-600">Tax (7.5%)</span>
+                  <span className="font-medium">₦{calculateTax().toFixed(2)}</span>
                 </div>
                 {discount > 0 && (
                   <div className="flex justify-between text-sm text-danger-600">
                     <span>Discount</span>
-                    <span>-${discount.toFixed(2)}</span>
+                    <span>-₦{discount.toFixed(2)}</span>
                   </div>
                 )}
                 {paymentMethod === 'insurance' && insuranceDetails.coverage > 0 && (
                   <div className="flex justify-between text-sm text-primary-600">
                     <span>Insurance Coverage ({insuranceDetails.coverage}%)</span>
-                    <span>-${calculateInsuranceCoverage().toFixed(2)}</span>
+                    <span>-₦{calculateInsuranceCoverage().toFixed(2)}</span>
                   </div>
                 )}
                 <div className="flex justify-between text-lg font-bold pt-2 border-t border-gray-200">
                   <span>Total</span>
-                  <span>${calculateTotal().toFixed(2)}</span>
+                  <span>₦{calculateTotal().toFixed(2)}</span>
                 </div>
               </div>
             </div>

@@ -78,28 +78,28 @@ const BillDetails = () => {
                 <tr>
                   <td className="px-6 py-4 whitespace-nowrap">Consultation Fee</td>
                   <td className="px-6 py-4 whitespace-nowrap">1</td>
-                  <td className="px-6 py-4 whitespace-nowrap">$150.00</td>
-                  <td className="px-6 py-4 whitespace-nowrap">$150.00</td>
+                  <td className="px-6 py-4 whitespace-nowrap">₦150.00</td>
+                  <td className="px-6 py-4 whitespace-nowrap">₦150.00</td>
                 </tr>
                 <tr>
                   <td className="px-6 py-4 whitespace-nowrap">Laboratory Tests</td>
                   <td className="px-6 py-4 whitespace-nowrap">2</td>
-                  <td className="px-6 py-4 whitespace-nowrap">$50.00</td>
-                  <td className="px-6 py-4 whitespace-nowrap">$100.00</td>
+                  <td className="px-6 py-4 whitespace-nowrap">₦50.00</td>
+                  <td className="px-6 py-4 whitespace-nowrap">₦100.00</td>
                 </tr>
               </tbody>
               <tfoot className="bg-gray-50">
                 <tr>
                   <td colSpan={3} className="px-6 py-4 text-right font-medium">Subtotal:</td>
-                  <td className="px-6 py-4 whitespace-nowrap font-medium">$250.00</td>
+                  <td className="px-6 py-4 whitespace-nowrap font-medium">₦250.00</td>
                 </tr>
                 <tr>
-                  <td colSpan={3} className="px-6 py-4 text-right font-medium">Tax (10%):</td>
-                  <td className="px-6 py-4 whitespace-nowrap font-medium">$25.00</td>
+                  <td colSpan={3} className="px-6 py-4 text-right font-medium">Tax (7.5%):</td>
+                  <td className="px-6 py-4 whitespace-nowrap font-medium">₦18.75</td>
                 </tr>
                 <tr>
                   <td colSpan={3} className="px-6 py-4 text-right text-lg font-semibold">Total:</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-lg font-semibold">$275.00</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-lg font-semibold">₦268.75</td>
                 </tr>
               </tfoot>
             </table>
