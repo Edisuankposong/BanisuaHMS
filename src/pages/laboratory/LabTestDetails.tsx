@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, FileText, Download, Printer, Clock, User, Stethoscope, FileCheck } from 'lucide-react';
+import { 
+  ArrowLeft, FileText, Download, Printer, Clock, User, 
+  Stethoscope, FileCheck, Upload, AlertTriangle 
+} from 'lucide-react';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
+import FileUpload from '../../components/ui/FileUpload';
 
 interface LabTest {
   id: string;
@@ -15,7 +19,12 @@ interface LabTest {
   priority: string;
   status: 'requested' | 'collected' | 'in-progress' | 'completed';
   results?: string;
-  resultFile?: string;
+  resultFiles?: Array<{
+    name: string;
+    url: string;
+    type: string;
+    uploadedAt: string;
+  }>;
   notes?: string;
   completedDate?: string;
 }
@@ -25,6 +34,8 @@ const LabTestDetails = () => {
   const navigate = useNavigate();
   const [labTest, setLabTest] = useState<LabTest | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchLabTest = async () => {
@@ -45,7 +56,20 @@ const LabTestDetails = () => {
           priority: 'urgent',
           status: 'completed',
           results: 'All parameters within normal range. No significant abnormalities detected.',
-          resultFile: 'cbc_results.pdf',
+          resultFiles: [
+            {
+              name: 'CBC_Results.pdf',
+              url: '#',
+              type: 'application/pdf',
+              uploadedAt: '2024-03-15T14:30:00'
+            },
+            {
+              name: 'Blood_Analysis.jpg',
+              url: '#',
+              type: 'image/jpeg',
+              uploadedAt: '2024-03-15T14:30:00'
+            }
+          ],
           notes: 'Patient fasting for 12 hours before test.',
           completedDate: '2024-03-15T14:30:00'
         };
@@ -60,6 +84,36 @@ const LabTestDetails = () => {
 
     fetchLabTest();
   }, [id]);
+
+  const handleFileUpload = async (files: File[]) => {
+    setIsUploading(true);
+    setUploadError(null);
+
+    try {
+      // Mock file upload
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Update lab test with new files
+      if (labTest) {
+        const newFiles = files.map(file => ({
+          name: file.name,
+          url: '#',
+          type: file.type,
+          uploadedAt: new Date().toISOString()
+        }));
+
+        setLabTest({
+          ...labTest,
+          resultFiles: [...(labTest.resultFiles || []), ...newFiles]
+        });
+      }
+    } catch (error) {
+      console.error('Error uploading files:', error);
+      setUploadError('Failed to upload files. Please try again.');
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -228,6 +282,40 @@ const LabTestDetails = () => {
           </div>
         </Card>
 
+        {/* Results Upload */}
+        {labTest.status !== 'completed' && (
+          <Card title="Upload Results" className="md:col-span-3">
+            <div className="p-6">
+              <FileUpload
+                onFileSelect={handleFileUpload}
+                maxFiles={5}
+                accept={{
+                  'application/pdf': ['.pdf'],
+                  'image/*': ['.png', '.jpg', '.jpeg'],
+                  'text/csv': ['.csv'],
+                }}
+                maxSize={10485760} // 10MB
+              />
+
+              {isUploading && (
+                <div className="mt-4 text-center">
+                  <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary-500 mx-auto"></div>
+                  <p className="text-sm text-gray-600 mt-2">Uploading files...</p>
+                </div>
+              )}
+
+              {uploadError && (
+                <div className="mt-4 p-4 bg-danger-50 border border-danger-200 rounded-lg">
+                  <div className="flex items-center">
+                    <AlertTriangle className="h-5 w-5 text-danger-400 mr-2" />
+                    <p className="text-sm text-danger-700">{uploadError}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </Card>
+        )}
+
         {/* Results */}
         {labTest.status === 'completed' && (
           <Card title="Test Results" className="md:col-span-3">
@@ -235,15 +323,36 @@ const LabTestDetails = () => {
               <div className="bg-gray-50 rounded-lg p-4">
                 <p className="text-gray-700 whitespace-pre-line">{labTest.results}</p>
               </div>
-              {labTest.resultFile && (
-                <div className="mt-4">
-                  <Button
-                    variant="outline"
-                    leftIcon={<Download size={16} />}
-                    onClick={() => console.log('Download file:', labTest.resultFile)}
-                  >
-                    Download Full Report
-                  </Button>
+
+              {labTest.resultFiles && labTest.resultFiles.length > 0 && (
+                <div className="mt-6">
+                  <h3 className="text-sm font-medium text-gray-900 mb-3">Attached Files</h3>
+                  <div className="space-y-3">
+                    {labTest.resultFiles.map((file, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center justify-between p-3 bg-white border border-gray-200 rounded-lg"
+                      >
+                        <div className="flex items-center">
+                          <FileText className="h-5 w-5 text-gray-400 mr-2" />
+                          <div>
+                            <p className="text-sm font-medium text-gray-900">{file.name}</p>
+                            <p className="text-xs text-gray-500">
+                              Uploaded {formatDate(file.uploadedAt)}
+                            </p>
+                          </div>
+                        </div>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          leftIcon={<Download size={14} />}
+                          onClick={() => console.log('Download file:', file.name)}
+                        >
+                          Download
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
