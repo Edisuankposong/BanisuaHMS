@@ -16,28 +16,28 @@ const mockUsers: User[] = [
   {
     id: '1',
     name: 'Admin User',
-    email: 'admin@banisua.com',
+    email: 'admin@banisua.com.ng',
     role: 'admin' as Role,
     profileImage: 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=150'
   },
   {
     id: '2',
     name: 'Dr. Sarah Johnson',
-    email: 'doctor@banisua.com',
+    email: 'doctor@banisua.com.ng',
     role: 'doctor' as Role,
     profileImage: 'https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg?auto=compress&cs=tinysrgb&w=150'
   },
   {
     id: '3',
     name: 'Nurse Smith',
-    email: 'nurse@banisua.com',
+    email: 'nurse@banisua.com.ng',
     role: 'nurse' as Role,
     profileImage: 'https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=150'
   },
   {
     id: '4',
     name: 'John Miller',
-    email: 'lab@banisua.com',
+    email: 'lab@banisua.com.ng',
     role: 'lab_technician' as Role,
     profileImage: 'https://images.pexels.com/photos/8460157/pexels-photo-8460157.jpeg?auto=compress&cs=tinysrgb&w=150'
   }

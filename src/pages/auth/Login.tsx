@@ -123,23 +123,30 @@ const Login = () => {
               <button 
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('admin@banisua.com')}
+                onClick={() => setEmail('admin@banisua.com.ng')}
               >
                 Admin
               </button>
               <button
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('doctor@banisua.com')}
+                onClick={() => setEmail('doctor@banisua.com.ng')}
               >
                 Doctor
               </button>
               <button
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('nurse@banisua.com')}
+                onClick={() => setEmail('nurse@banisua.com.ng')}
               >
                 Nurse
+              </button>
+              <button
+                type="button"
+                className="text-primary-600 hover:text-primary-700"
+                onClick={() => setEmail('lab@banisua.com.ng')}
+              >
+                Lab Tech
               </button>
             </div>
           </div>
