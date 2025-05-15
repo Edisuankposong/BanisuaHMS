@@ -123,51 +123,37 @@ const Login = () => {
               <button 
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('admin@banisua.com.ng')}
+                onClick={() => setEmail('adaobi.okonkwo@banisua.com.ng')}
               >
-                Admin
+                Patient 1
               </button>
               <button
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('doctor@banisua.com.ng')}
+                onClick={() => setEmail('oluwaseun.adeleke@banisua.com.ng')}
               >
-                Doctor
+                Patient 2
               </button>
               <button
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('nurse@banisua.com.ng')}
+                onClick={() => setEmail('chioma.eze@banisua.com.ng')}
               >
-                Nurse
+                Patient 3
               </button>
               <button
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('lab@banisua.com.ng')}
+                onClick={() => setEmail('babajide.ogunleye@banisua.com.ng')}
               >
-                Lab Tech
+                Patient 4
               </button>
               <button
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('pharmacist@banisua.com.ng')}
+                onClick={() => setEmail('aisha.mohammed@banisua.com.ng')}
               >
-                Pharmacist
-              </button>
-              <button
-                type="button"
-                className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('receptionist@banisua.com.ng')}
-              >
-                Receptionist
-              </button>
-              <button
-                type="button"
-                className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('patient@banisua.com.ng')}
-              >
-                Patient
+                Patient 5
               </button>
             </div>
           </div>
