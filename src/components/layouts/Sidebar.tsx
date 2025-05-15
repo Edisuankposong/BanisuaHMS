@@ -2,7 +2,8 @@ import { NavLink } from 'react-router-dom';
 import { useAuthStore } from '../../stores/authStore';
 import { 
   X, Home, Users, CalendarClock, Stethoscope, FileText, 
-  Receipt, Pill, FlaskConical, Bed, FileBarChart, Calendar as CalendarIcon 
+  Receipt, Pill, FlaskConical, Bed, FileBarChart, Calendar as CalendarIcon,
+  Files 
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -39,6 +40,12 @@ const Sidebar = ({ isOpen, closeSidebar }: SidebarProps) => {
         icon: <CalendarIcon size={20} />, 
         text: 'Staff Scheduling', 
         roles: ['admin', 'hr'] 
+      },
+      { 
+        to: '/documents', 
+        icon: <Files size={20} />, 
+        text: 'Documents', 
+        roles: ['admin', 'doctor', 'nurse', 'receptionist'] 
       },
     ];
 
