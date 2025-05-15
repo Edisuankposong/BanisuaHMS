@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Receipt, Search, Filter, Plus, DollarSign, 
-  CreditCard, AlertTriangle, Download, FileText 
+  CreditCard, AlertTriangle, Download, FileText,
+  Clock 
 } from 'lucide-react';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
