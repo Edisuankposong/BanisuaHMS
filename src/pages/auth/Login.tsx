@@ -158,9 +158,9 @@ const Login = () => {
               <button
                 type="button"
                 className="text-primary-600 hover:text-primary-700"
-                onClick={() => setEmail('patient@banisua.com.ng')}
+                onClick={() => setEmail('receptionist@banisua.com.ng')}
               >
-                Patient
+                Receptionist
               </button>
             </div>
           </div>
@@ -170,4 +170,4 @@ const Login = () => {
   );
 };
 
-export default Login
+export default Login;
