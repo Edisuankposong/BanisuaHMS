@@ -31,3 +31,5 @@ const resources: Resource[] = [
     type: 'doctor'
   }
 ];
+
+export default resources

@@ -44,3 +44,5 @@ const auditLogs: AuditLog[] = [
     errorMessage: 'Invalid vital signs data format'
   }
 ];
+
+export default auditLogs

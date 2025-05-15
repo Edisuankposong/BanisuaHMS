@@ -27,3 +27,5 @@ const mockLabTest: LabTest = {
   notes: 'Patient fasting for 12 hours before test.',
   completedDate: '2024-03-15T14:30:00'
 };
+
+export default mockLabTest
