@@ -169,3 +169,23 @@ export interface Admission {
   diagnosis: string;
   notes?: string;
 }
+
+export interface StaffSchedule {
+  id: string;
+  userId: string;
+  shiftStart: string;
+  shiftEnd: string;
+  date: string;
+  status: 'scheduled' | 'completed' | 'cancelled';
+  type: 'regular' | 'overtime' | 'on-call';
+}
+
+export interface TimeOffRequest {
+  id: string;
+  userId: string;
+  startDate: string;
+  endDate: string;
+  type: 'vacation' | 'sick' | 'personal';
+  status: 'pending' | 'approved' | 'rejected';
+  notes?: string;
+}
