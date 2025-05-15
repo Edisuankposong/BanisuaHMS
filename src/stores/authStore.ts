@@ -54,6 +54,13 @@ const mockUsers: User[] = [
     email: 'receptionist@banisua.com.ng',
     role: 'receptionist' as Role,
     profileImage: 'https://images.pexels.com/photos/5998474/pexels-photo-5998474.jpeg?auto=compress&cs=tinysrgb&w=150'
+  },
+  {
+    id: '7',
+    name: 'John Davis',
+    email: 'patient@banisua.com.ng',
+    role: 'patient' as Role,
+    profileImage: 'https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=150'
   }
 ];
 
